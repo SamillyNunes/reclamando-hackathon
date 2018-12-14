@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "Reclamando",
         theme: ThemeData(
-            primarySwatch: Colors.blue,
-            primaryColor: Color.fromARGB(255, 4, 125, 141)
+            primarySwatch: Colors.red,
+            primaryColor: Colors.redAccent
         ),
         debugShowCheckedModeBanner: false,
         home: TabScreen(),

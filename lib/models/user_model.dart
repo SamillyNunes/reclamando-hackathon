@@ -40,12 +40,14 @@ class UserModel extends Model{
     };
 
     Firestore.instance.collection("users").add(userData).then(
-        (doc){
-          userId=doc.documentID.toLowerCase();
+            (doc){
+          userId=doc.documentID;
         }
     );
 
   }
+
+
 
 
 

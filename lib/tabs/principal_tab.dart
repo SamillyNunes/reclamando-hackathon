@@ -21,7 +21,7 @@ class PrincipalTab extends StatelessWidget {
               return Center(child: CircularProgressIndicator(),);
             } else {
               var cards = snapshot.data.documents.map(
-                      (doc){
+                  (doc){
                     return PrincipalScreen(doc);
                   }
               ).toList();
