@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hackathon_app/models/user_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,8 +17,6 @@ class _AdicionarScreenState extends State<AdicionarScreen> {
   final titleController = TextEditingController();
   final localController = TextEditingController();
 
-  final googleSignIn = GoogleSignIn();
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +26,8 @@ class _AdicionarScreenState extends State<AdicionarScreen> {
         centerTitle: true,
       ),
       body: Form(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
           child: ListView(
+            padding: EdgeInsets.all(20.0),
             children: <Widget>[
               TextFormField(
                 controller: titleController,
@@ -44,21 +40,19 @@ class _AdicionarScreenState extends State<AdicionarScreen> {
             RaisedButton(
               child: Text("Tirar foto"),
               onPressed: () async{
-                await ImagePicker.pickImage(source: ImageSource.camera).then(
+                await ImagePicker.pickImage(source: ImageSource.camera,maxHeight: 1080.0,maxWidth:1080.0 ).then(
                     (file){
                       if(file==null) return;
                       this.image=file;
                       popup();
                     }
-                );
+                ).catchError((e)=>print(e));
 
               },
             ),
               RaisedButton(
                 onPressed: () async{
                   await UserModel.of(context).ensureloggedIn();
-
-                  print(image);
 
                   StorageUploadTask task = FirebaseStorage.instance.ref().child(DateTime.now().millisecondsSinceEpoch.toString()).putFile(image);
 
@@ -74,7 +68,8 @@ class _AdicionarScreenState extends State<AdicionarScreen> {
                       "local":localController.text,
                       "imgUrl":downloadUrl,
                       "date":DateTime.now().toString(),
-                      "urgency":1
+                      "urgency":1,
+                      "user":UserModel.of(context).userId
                     }
                   );
                 },
@@ -84,7 +79,6 @@ class _AdicionarScreenState extends State<AdicionarScreen> {
             ],
           ),
 
-        )
       ),
     );
   }

@@ -9,6 +9,7 @@ class UserModel extends Model{
   final googleSignIn = GoogleSignIn();
   final auth = FirebaseAuth.instance; //apenas uma instancia o tempo todo
   FirebaseUser firebaseUser;
+  String userId;
 
   Map<String,dynamic> userData;
 
@@ -30,12 +31,23 @@ class UserModel extends Model{
       GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication; //pega as credenciais do google
       await auth.signInWithGoogle(idToken: credentials.idToken, accessToken: credentials.accessToken); //passa as credenciais p o firebase
 
-
-
     }
 
+    userData={
+      "name":googleSignIn.currentUser.displayName,
+      "photoUrl":googleSignIn.currentUser.photoUrl,
+      "email":googleSignIn.currentUser.email
+    };
+
+    Firestore.instance.collection("users").add(userData).then(
+        (doc){
+          userId=doc.documentID.toLowerCase();
+        }
+    );
 
   }
+
+
 
 
 

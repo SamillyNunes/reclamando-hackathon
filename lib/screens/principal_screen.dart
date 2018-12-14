@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hackathon_app/models/user_model.dart';
 
 class PrincipalScreen extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class PrincipalScreen extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: NetworkImage("https://www.urbanarts.com.br/imagens/produtos/111155/0/Detalhes/paisagem-abstrata-8.jpg"),
+                      backgroundImage: NetworkImage("https://image.freepik.com/icones-gratis/perfil-macho-utilizador-sombra_318-40244.jpg"),
                     ),
                     SizedBox(width: 10.0,),
                     Column(
@@ -31,7 +32,7 @@ class PrincipalScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Fulano de tal",
+                          "Teste",
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 10.0
@@ -73,7 +74,8 @@ class PrincipalScreen extends StatelessWidget {
                     height: 30.0,
                     width: 30.0,
                     child: RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                      },
                       child: Text("+",textAlign: TextAlign.center,),
                     ),
                   ),
